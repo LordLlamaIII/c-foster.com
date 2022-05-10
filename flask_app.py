@@ -1,5 +1,8 @@
 from flask import Flask, request, render_template
+from sitelogic.security.validateSignature import is_valid_signature
 from sitelogic.chess.game import Game
+from dotenv import load_dotenv
+from os import getenv
 import git
 
 app = Flask(__name__, static_url_path="/static/")
@@ -37,19 +40,23 @@ def renderChess():
 
 @app.route("/update_server", methods=["POST"])
 def webhook():
+    out = ("Update Failed", 400)
+
     if request.method == "POST":
-        repo = git.Repo("mysite")
-        origin = repo.remotes.origin
-        git_ssh_identity_file = "../.ssh/id_rsa"
-        git_ssh_cmd = f"ssh -i {git_ssh_identity_file}"
+        x_hub_signature = request.headers.get("X-Hub-Signature")
+        load_dotenv("mysite/.env")
+        w_secret = os.getenv("SECRET_TOKEN")
 
-        with git.Git().custom_environment(GIT_SSH_COMMAND=git_ssh_cmd):
-            origin.pull()
+        if not is_valid_signature(x_hub_signature, request.data, w_secret):
+            repo = git.Repo("mysite")
+            origin = repo.remotes.origin
+            git_ssh_identity_file = "../.ssh/id_rsa"
+            git_ssh_cmd = f"ssh -i {git_ssh_identity_file}"
 
-        out = ("Updated Successfully", 200)
+            with git.Git().custom_environment(GIT_SSH_COMMAND=git_ssh_cmd):
+                origin.pull()
 
-    else:
-        out = ("Update Failed", 400)
+            out = ("Updated Successfully", 200)
 
     return out
 
