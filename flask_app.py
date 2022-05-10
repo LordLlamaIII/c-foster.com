@@ -38,7 +38,7 @@ def renderChess():
 @app.route("/update_server", methods=["POST"])
 def webhook():
     if request.method == "POST":
-        repo = git.Repo("mysite/.git")
+        repo = git.Repo("mysite")
         origin = repo.remotes.origin
         origin.pull()
         out = ("Updated Successfully", 200)
