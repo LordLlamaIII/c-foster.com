@@ -59,4 +59,3 @@ def webhook():
             out = ("Updated Successfully", 200)
 
     return out
-
