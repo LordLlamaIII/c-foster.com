@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template
 from sitelogic.chess.game import Game
+import git
 
 app = Flask(__name__, static_url_path="/static/")
 
@@ -33,3 +34,17 @@ def renderChess():
         out = render_template("chess.html")
 
     return out
+
+@app.route("/update_server", methods=["POST"])
+def webhook():
+    if request.method == "POST":
+        repo = git.Repo("mysite/.git")
+        origin = repo.remotes.origin
+        origin.pull()
+        out = ("Updated Successfully", 200)
+
+    else:
+        out = ("Update Failed", 400)
+
+    return out
+
