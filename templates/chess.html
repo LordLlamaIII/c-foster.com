@@ -1,0 +1,51 @@
+<html>
+<head>
+    <title>Chris Foster - Chess</title>
+    <link rel="icon" href="/static/common/c.png" type="image/x-icon">
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet" type="text/css">
+    <link rel="stylesheet" href="/static/common/pickout.css">
+    <link rel="stylesheet" href="/static/common/pk-dark.css">
+    <link rel="stylesheet" href="/static/chess/style.css">
+    <link rel="stylesheet" href="/static/chess/chessboard.css">
+    <script src="/static/common/jquery.js"></script>
+    <script src="/static/chess/chessboard.js"></script>
+</head>
+<body style="background-color: black;">
+    <div id="particles-js"></div>
+    <div id="footer">
+        <a href="https://www.c-foster.com/">
+            <img id="logo" src="/static/home/DivergenceLogo.gif">
+        </a>
+        <button id="invite" type="button">Invite friend.</button>
+        <div class="triangleright"></div>
+        <div id="footerbar"></div>
+        <div id="footertext">
+            Thanks to oakmac for <a href="https://github.com/oakmac/chessboardjs/">chessboard.js</a> and VincentGarreau for <a href="https://github.com/VincentGarreau/particles.js/">particles.js</a>. All internal game logic was created by Chris Foster.
+        </div>
+    </div>
+    <div class="center">
+        <div id="board"></div>
+    </div>
+    <div class="form-group">
+        <div class="pk-form">
+            <select name="option" id="option" class="option all" placeholder="Promote to which?">
+				<option data-icon="&#x265B;" value="Q">Queen</option>
+				<option data-icon="&#x265E;" value="N">Knight</option>
+				<option data-icon="&#x265D;" value="B">Bishop</option>
+				<option data-icon="&#x265C;" value="R">Rook</option>
+            </select>
+        </div>
+    </div>
+    <div id="overlay"></div>
+    <div id="wintext" class="center">
+        <h1>Checkmate!</h1>
+        <h2 id="winner"></h2>
+        <hr>
+        <button id="playagain" type="button">Play again.</button>
+    </div>
+    <script src="/static/common/particles.js"></script>
+    <script src="/static/chess/particlerun.js"></script>
+    <script src="/static/chess/scripts.js"></script>
+    <script src="/static/common/pickout.js"></script>
+</body>
+</html>

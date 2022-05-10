@@ -1,0 +1,36 @@
+.center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.link {
+    font-size: 40px;
+    color: white;
+    padding-right: 5px;
+    padding-left: 5px;
+}
+
+img {
+    width: 25vw;
+    height: auto;
+    display: block;
+    clear: both;
+}
+
+hr {
+    color: white;
+    display: block;
+    clear: both;
+}
+
+#particles-js {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    left: 0;
+    top: 0;
+}
