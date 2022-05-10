@@ -103,6 +103,7 @@ function startPickout() {
 function setButtons() {
     $("#invite").click(invite);
     $("#playagain").click(newGame);
+    console.log("test!");
 }
 
 var board;
