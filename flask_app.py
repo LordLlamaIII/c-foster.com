@@ -52,4 +52,3 @@ def webhook():
         out = ("Update Failed", 400)
 
     return out
-
