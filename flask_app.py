@@ -45,7 +45,7 @@ def webhook():
     if request.method == "POST":
         x_hub_signature = request.headers.get("X-Hub-Signature")
         load_dotenv("mysite/.env")
-        w_secret = os.getenv("SECRET_TOKEN")
+        w_secret = getenv("SECRET_TOKEN")
 
         if not is_valid_signature(x_hub_signature, request.data, w_secret):
             repo = git.Repo("mysite")
