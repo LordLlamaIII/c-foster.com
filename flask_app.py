@@ -47,7 +47,7 @@ def webhook():
         load_dotenv("mysite/.env")
         w_secret = getenv("SECRET_TOKEN")
 
-        if not is_valid_signature(x_hub_signature, request.data, w_secret):
+        if is_valid_signature(x_hub_signature, request.data, w_secret):
             repo = git.Repo("mysite")
             origin = repo.remotes.origin
             git_ssh_identity_file = "../.ssh/id_rsa"
