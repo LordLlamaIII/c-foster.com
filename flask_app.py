@@ -40,7 +40,12 @@ def webhook():
     if request.method == "POST":
         repo = git.Repo("mysite")
         origin = repo.remotes.origin
-        origin.pull()
+        git_ssh_identity_file = "../.ssh/id_rsa"
+        git_ssh_cmd = f"ssh -i {git_ssh_identity_file}"
+
+        with git.Git().custom_environment(GIT_SSH_COMMAND=git_ssh_cmd):
+            origin.pull()
+
         out = ("Updated Successfully", 200)
 
     else:
