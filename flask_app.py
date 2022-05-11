@@ -1,11 +1,31 @@
 from flask import Flask, request, render_template
 from sitelogic.security.validateSignature import is_valid_signature
 from sitelogic.chess.game import Game
+from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from os import getenv
 import git
 
 app = Flask(__name__, static_url_path="/static/")
+
+load_dotenv(".env")
+
+user = "LordLlamaIII"
+sqlpass = getenv("SQL_PASS")
+host = "LordLlamaIII.mysql.pythonanywhere-services.com"
+dbname = "LordLlamaIII$cfoster"
+SQLALCHEMY_DATABASE_URI = f"mysql+mysqlconnector://{user}:{sqlpass}@{host}/{dbname}"
+
+app.config["SQLALCHEMY_DATABASE_URI"] = SQLALCHEMY_DATABASE_URI
+app.config["SQLALCHEMY_POOL_RECYCLE"] = 299
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+db = SQLAlchemy(app)
+
+class ChessDB(db.Model):
+    __tablename__ = "chess"
+    id = db.Column(db.String(8), primary_key=True)
+    content = db.Column(db.String(4096))
 
 @app.route("/")
 def renderSlash():
@@ -44,7 +64,6 @@ def webhook():
 
     if request.method == "POST":
         x_hub_signature = request.headers.get("X-Hub-Signature")
-        load_dotenv(".env")
         w_secret = getenv("SECRET_TOKEN")
 
         if is_valid_signature(x_hub_signature, request.data, w_secret):
