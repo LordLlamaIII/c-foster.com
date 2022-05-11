@@ -44,7 +44,7 @@ def webhook():
 
     if request.method == "POST":
         x_hub_signature = request.headers.get("X-Hub-Signature")
-        load_dotenv("mysite/.env")
+        load_dotenv(".env")
         w_secret = getenv("SECRET_TOKEN")
 
         if is_valid_signature(x_hub_signature, request.data, w_secret):
