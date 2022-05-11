@@ -44,8 +44,8 @@
         <button id="playagain" type="button">Play again.</button>
     </div>
     <script type="text/javascript">
-        if ({{data}}) {
-            var gameid = {{ data.gameid }};
+        if ("{{data.content}}") {
+            var gameid = {{data.content}};
         }
     </script>
     <script src="/static/common/particles.js"></script>
