@@ -51,7 +51,12 @@ def renderChess():
         out = f"{fen}\n{enpassant}\n{promotion}\n{checkmate}"
 
     elif request.args.get("c"):
-        out = render_template("chess.html")
+        id = request.args.get("c")
+        game = ChessDB(content=id)
+        db.session.add(game)
+        db.session.commit()
+
+        out = render_template("chess.html", temp=ChessDB.query.all())
 
     else:
         out = render_template("chess.html")
