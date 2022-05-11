@@ -24,7 +24,7 @@ db = SQLAlchemy(app)
 
 class ChessDB(db.Model):
     __tablename__ = "chess"
-    id = Column(UUID, primary_key=True, server_default="uuid_generate_v4()")
+    id = db.Column(db.Integer, primary_key=True)
     gameid = db.Column(db.String(8))
     content = db.Column(db.String(4096))
 
@@ -52,12 +52,12 @@ def renderChess():
         out = f"{fen}\n{enpassant}\n{promotion}\n{checkmate}"
 
     elif request.args.get("c"):
-        id = request.args.get("c")
-        game = ChessDB(content=id)
+        gameid = request.args.get("c")
+        game = ChessDB(content=gameid)
         db.session.add(game)
         db.session.commit()
 
-        out = render_template("chess.html", temp=ChessDB.query.all())
+        out = render_template("chess.html", data=ChessDB.query.all())
 
     else:
         out = render_template("chess.html")
