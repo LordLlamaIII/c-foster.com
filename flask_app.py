@@ -60,7 +60,7 @@ def renderChess():
         out = render_template("chess.html", data=ChessDB.query.all())
 
     else:
-        out = render_template("chess.html")
+        out = render_template("chess.html", data="")
 
     return out
 
