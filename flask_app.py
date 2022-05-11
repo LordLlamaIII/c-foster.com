@@ -24,7 +24,8 @@ db = SQLAlchemy(app)
 
 class ChessDB(db.Model):
     __tablename__ = "chess"
-    id = db.Column(db.String(8), primary_key=True)
+    id = Column(UUID, primary_key=True, server_default="uuid_generate_v4()")
+    gameid = db.Column(db.String(8))
     content = db.Column(db.String(4096))
 
 @app.route("/")
